@@ -1,0 +1,152 @@
+---
+- name: Configuring Interfaces & OSPF On Cisco Routers
+  hosts: all
+  connection: network_cli
+  tasks:
+    - name: Configuring Interface and OSPF On RTR-3
+      ios_config:
+        lines:
+          - interface gi0/1
+          - no shutdown
+          - ip address 10.100.12.1 255.255.255.252
+          - interface gi0/3
+          - no shutdown
+          - interface gi0/3.103
+          - encapsulation dot1Q 103
+          - ip address 192.168.1.249 255.255.255.252
+          - interface gi0/3.104
+          - encapsulation dot1Q 104
+          - ip address 192.168.1.193 255.255.255.224
+
+          - interface loopback 0
+          - ip address 2.2.2.2 255.255.255.255
+          - router ospf 100
+          - network 0.0.0.0 255.255.255.255 area 0
+          
+
+      when: "inventory_hostname == 'RTR_3'"
+      
+
+    - name: Configuring Interface and OSPF On RTR-4
+      ios_config:
+        lines:
+          - interface gi0/1
+          - no shutdown
+          - ip address 10.100.12.2 255.255.255.252
+          - interface gi0/2
+          - no shutdown
+          - ip address 10.100.23.2 255.255.255.252
+          - interface gi0/3
+          - no shutdown
+          - interface gi0/3.101
+          - encapsulation dot1Q 101
+          - ip address 192.168.1.129 255.255.255.192
+          - interface gi0/3.102
+          - encapsulation dot1Q 102
+          - ip address 192.168.1.225 255.255.255.240
+          - interface gi0/3.103
+          - encapsulation dot1Q 103
+          - ip address 192.168.1.241 255.255.255.248
+
+          - interface loopback 0
+          - ip address 1.1.1.1 255.255.255.255
+          - router ospf 100
+          - network 0.0.0.0 255.255.255.255 area 0
+          
+
+      when: "inventory_hostname == 'RTR_4'"
+
+    - name: Configuring Interface and OSPF On RTR-3
+      ios_config:
+        lines:
+          - interface gi0/2
+          - no shutdown
+          - ip address 10.100.23.1 255.255.255.252
+          - interface gi0/3
+          - no shutdown
+          - interface gi0/3.103
+          - encapsulation dot1Q 103
+          - ip address 192.168.2.1 255.255.255.224
+          - interface gi0/3.105
+          - encapsulation dot1Q 105
+          - ip address 192.168.1.1 255.255.255.128
+
+          - interface loopback 0
+          - ip address 3.3.3.3 255.255.255.255
+          - router ospf 100
+          - network 0.0.0.0 255.255.255.255 area 0
+          
+      when: "inventory_hostname == 'RTR_5'"
+
+    - name: Configuring VLANS & Trunk On SW1
+      ios_config:
+        lines:
+          - vlan 99
+          - name MGMT          
+          - vlan 102
+          - name Sales
+          - vlan 103
+          - name IT
+
+          - interface gi0/1
+          - no shutdown
+          - switchport trunk encapsulation dot1q
+          - switchport mode trunk
+
+          - interface gi0/2
+          - no shutdown
+          - switchport mode access
+          - switchport access vlan 103
+
+
+      when: "inventory_hostname == 'SW1'"
+
+    - name: Configuring VLANS & Trunk On SW2
+      ios_config:
+        lines:
+          - vlan 99
+          - name MGMT
+          - vlan 101
+          - name Prod
+          - vlan 102
+          - name Mkt
+          - vlan 103
+          - name IT
+          - interface gi0/1
+          - no shutdown
+          - switchport trunk encapsulation dot1q
+          - switchport mode trunk
+
+          - interface gi0/2
+          - no shutdown
+          - switchport mode access
+          - switchport access vlan 103
+
+
+      when: "inventory_hostname == 'SW2'"
+
+
+
+    - name: Configuring VLANS & Trunk On SW3
+      ios_config:
+        lines:
+          - vlan 99
+          - name MGMT
+          - vlan 102
+          - name Sales
+          - vlan 103
+          - name IT
+
+          - interface gi0/1
+          - no shutdown
+          - switchport trunk encapsulation dot1q
+          - switchport mode trunk
+
+          - interface gi0/2
+          - no shutdown
+          - switchport mode access
+          - switchport access vlan 103
+
+
+      when: "inventory_hostname == 'SW3'"
+
