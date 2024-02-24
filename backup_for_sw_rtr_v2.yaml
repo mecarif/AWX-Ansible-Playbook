@@ -32,4 +32,4 @@
          filename: "{{ inventory_hostname }}.txt"
          #Please change /home/hawar/Desktop to your direcotry
          #Every time create a new directory under named date and time
-         dir_path: "/home/backup/{{ date }}_at_{{ time }}/{{ inventory_hostname }}.txt"
+         dir_path: "/home/backup/{{ inventory_hostname }}.txt"
