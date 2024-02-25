@@ -10,4 +10,4 @@
       ios_config:
        backup: yes
        backup_options:
-       dir_path: /var/lib/awx/projects/
+         dir_path: /var/lib/awx/projects/
