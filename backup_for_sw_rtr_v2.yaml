@@ -9,4 +9,4 @@
     - name: Get running-config and save it
       ios_config:
        backup: yes
-       backup_path: /var/lib/awx/projects/backup_abc
+       backup_path: /var/lib/awx/projects/
