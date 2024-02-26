@@ -13,7 +13,7 @@
          dir_path: /home/backup
          
     - name: "BACKUP IOS CONFIG to TFTP"
-      cli_command:
+      ios_config:
         command: copy running-config tftp://172.31.1.110
         prompt: "Address or name of remote host \\[172.31.1.110\\]?"
         answer: "\n"
