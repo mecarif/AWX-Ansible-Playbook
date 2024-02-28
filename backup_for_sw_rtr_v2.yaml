@@ -14,10 +14,9 @@
          
     - name: "BACKUP IOS CONFIG to TFTP"
       ios_config:
-       lines:
-        - command: copy running-config tftp://172.31.1.110
-        - prompt: "Address or name of remote host \\[172.31.1.110\\]?"
-        - answer: "\n"
+        command: copy running-config tftp://172.31.1.110
+        prompt: "Address or name of remote host \\[172.31.1.110\\]?"
+        answer: "\n"
 
 
     
